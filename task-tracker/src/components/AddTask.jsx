@@ -1,13 +1,18 @@
 import React, { use } from 'react'
 import { useState } from 'react'
 
-function AddTask() {
+function AddTask({taskList, setTaskList}) {
     const [addModal, setAddModal] = useState(false);
     const [taskName, setTaskName] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
 
-    const handleAddTask = () => {
-        setAddModal(false)
+    const handleAddTask = (e) => {
+        e.preventDefault();
+        setTaskList([...taskList, {taskName, taskDescription}]);
+        setTaskName("");
+        setTaskDescription("");
+        setAddModal(false);
+    
     }
   return (
     <div>
