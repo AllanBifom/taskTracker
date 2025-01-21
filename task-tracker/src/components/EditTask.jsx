@@ -1,15 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 function EditTask({ task, index, taskList, setTaskList }) {
     const[editModal, setEditModal] = useState(false);
     const [taskName, setTaskName] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
 
+    useEffect(() => {
+        setTaskName(task.taskName);
+        setTaskDescription(task.taskDescription);
+    }, [])
+
     const handleEditTask = (e) => {
         e.preventDefault();
+        let taskIndex = taskList.indexOf(task);
+        taskList.splice(taskIndex, 1);
         setTaskList([...taskList, { taskName, taskDescription }]);
-        setTaskName("");
-        setTaskDescription("");
         setEditModal(false);
 
     }
