@@ -5,13 +5,20 @@ function AddTask({taskList, setTaskList}) {
     const [addModal, setAddModal] = useState(false);
     const [taskName, setTaskName] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
+    const [errorMessage, setErrorMessage] = useState ("");
 
     const handleAddTask = (e) => {
         e.preventDefault();
-        setTaskList([...taskList, {taskName, taskDescription}]);
-        setTaskName("");
-        setTaskDescription("");
-        setAddModal(false);
+        if(!taskName){
+            setErrorMessage("Enter Project name to continue");
+        }
+        else{
+            setTaskList([...taskList, {taskName, taskDescription}]);
+            setErrorMessage("");
+            setTaskName("");
+            setTaskDescription("");
+            setAddModal(false);
+        }
     
     }
   return (
@@ -41,15 +48,24 @@ function AddTask({taskList, setTaskList}) {
                                     Task Name
                                 </label>
                                 <input
-                                    className='w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-5 leading-tight focus:outline-none focus:bg-white'
+                                    className='w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white'
                                     id="task-name"
                                     type='text'
                                     name='taskName'
                                     value={taskName}
                                     placeholder='Task name'
-                                    onChange={(e)=>setTaskName(e.target.value)}
+                                    onChange={(e)=>{
+                                        if (e.target.value === ""){
+                                            setErrorMessage("Enter a Task name to continue");
+                                        }else{
+                                        setTaskName(e.target.value);
+                                        setErrorMessage("");
+                                        }
+                                    }
+                                    }
                                     required
                                 />
+                                <p className='text-red-500 text-center mt-2 mb-5'>{errorMessage}</p>
                             </div>
                             <div>
                                 <label className='track-wide uppercase text-gray-700 text-xs font-semibold mb-2 block'
