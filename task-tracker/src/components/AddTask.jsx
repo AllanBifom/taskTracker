@@ -13,7 +13,8 @@ function AddTask({taskList, setTaskList}) {
             setErrorMessage("Enter Project name to continue");
         }
         else{
-            setTaskList([...taskList, {taskName, taskDescription}]);
+            let timeStamp = new Date().getTime();
+            setTaskList([...taskList, {taskName, taskDescription, timeStamp: timeStamp}]);
             setErrorMessage("");
             setTaskName("");
             setTaskDescription("");
